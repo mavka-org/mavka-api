@@ -27,6 +27,6 @@ const router = new Router()
  * @apiParam {String[]} [fields] Fields to be returned.
  */
 
- router.use('/score', score)
+router.use('/score', score)
 
 export default router
