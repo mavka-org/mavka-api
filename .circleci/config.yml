@@ -63,3 +63,7 @@ workflows:
       - deploy_to_gcr:
           requires:
             - build_test
+          filters:
+            branches:
+              only:
+                - prod
