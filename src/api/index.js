@@ -1,5 +1,8 @@
 import { Router } from 'express'
 import score from './score'
+import questions from './questions'
+import tests from './tests'
+import subjects from './subjects'
 
 const router = new Router()
 
@@ -27,6 +30,9 @@ const router = new Router()
  * @apiParam {String[]} [fields] Fields to be returned.
  */
 
+router.use('/questions', questions)
+router.use('/tests', tests)
+router.use('/subjects', subjects)
 router.use('/score', score)
 
 export default router

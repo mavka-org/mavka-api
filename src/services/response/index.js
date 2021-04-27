@@ -13,14 +13,26 @@ export const notFound = (res) => (entity) => {
   return null
 }
 
-export const authorOrAdmin = (res, user, userField) => (entity) => {
+export const unauthorized = (res) => (entity) => {
   if (entity) {
-    const isAdmin = user.role === 'admin'
-    const isAuthor = entity[userField] && entity[userField].equals(user.id)
-    if (isAuthor || isAdmin) {
-      return entity
-    }
-    res.status(401).end()
+    return entity
   }
+  res.status(401).end()
+  return null
+}
+
+export const conflict = (res, message) => (entity) => {
+  if (entity) {
+    return entity
+  }
+  res.status(409).json({ message })
+  return null
+}
+
+export const internalError = (res, message) => (entity) => {
+  if (entity) {
+    return entity
+  }
+  res.status(500).json({ message })
   return null
 }

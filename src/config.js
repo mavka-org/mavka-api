@@ -28,6 +28,7 @@ const config = {
     apiRoot: process.env.API_ROOT || '',
     masterKey: requireProcessEnv('MASTER_KEY'),
     mongo: {
+      uri: requireProcessEnv('MONGODB_URI'),
       options: {
         useUnifiedTopology: true,
         useNewUrlParser: true,
@@ -38,7 +39,6 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://localhost/mavka-api-dev',
       options: {
         debug: true
       }
@@ -46,10 +46,7 @@ const config = {
   },
   production: {
     ip: process.env.IP || undefined,
-    port: process.env.PORT || 8080,
-    mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://localhost/mavka-api'
-    }
+    port: process.env.PORT || 8080
   }
 }
 
