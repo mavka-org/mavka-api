@@ -63,9 +63,9 @@ workflows:
     jobs:
       - build_test
       - deploy_to_gcr:
-        requires:
-          - build_test
-        filters:
-          branches:
-            only:
-              - prod
+          requires:
+            - build_test
+          filters:
+            branches:
+              only:
+                - prod
