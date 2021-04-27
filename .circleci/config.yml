@@ -1,7 +1,11 @@
 version: 2.1
 
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.6.1
+  cloudrun: circleci/gcp-cloud-run@1.0.0
+
 jobs:
-  test:
+  build_test:
     docker:
       - image: cimg/node:15.1
     steps:
@@ -12,7 +16,7 @@ jobs:
           keys:
             - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
       - run:
-          name: install packages
+          name: Install Packages
           command: npm ci
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
@@ -21,8 +25,47 @@ jobs:
       - run:
           name: Run Tests
           command: npm run test
+  deploy_to_gcr:
+    docker:
+      - image: cimg/node:15.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Build app binary and Docker image
+          command: |
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
+            echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
+            echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
+            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=$CIRCLE_PROJECT_REPONAME' >> $BASH_ENV && source $BASH_ENV
+            npm ci
+            npm run prod
+            docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
+      - gcp-gcr/gcr-auth:
+          gcloud-service-key: GOOGLE_CLOUD_KEYS
+          google-project-id: GOOGLE_PROJECT_ID
+          google-compute-zone: GOOGLE_COMPUTE_ZONE
+      - gcp-gcr/push-image:
+          google-project-id: GOOGLE_PROJECT_ID
+          registry-url: "us.gcr.io"
+          image: $IMAGE_NAME
+      - cloudrun/deploy:
+          platform: "managed"
+          image: "us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME"
+          service-name: "orb-gcp-cloud-run"
+          region: $GOOGLE_COMPUTE_ZONE
+          unauthenticated: true
 
 workflows:
-  orb-free-workflow:
+  build_workflow:
     jobs:
-      - test
+      - build_test
+      - deploy_to_gcr:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only:
+                - prod
