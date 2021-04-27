@@ -15,6 +15,6 @@ const router = new Router()
  * @apiSuccess (Success 201) {Object} user Current user's data.
  * @apiError 401 Master access only or invalid credentials.
  */
-router.put('/', getTests)
+router.post('/', getTests)
 
 export default router
