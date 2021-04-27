@@ -150,11 +150,17 @@ export const basicQuestionAggregator = [
        primary_question: 1,
        options: '$options.text',
        tasks: '$tasks.text',
+       topic: '$zno_osvita_topic_name',
        active_explanation: {
-         status: 1,
-         comment: 1,
-         option_explanations: '$active_explanation.option_explanations.text',
-         task_explanations: '$active_explanation.task_explanations.text'
+         $cond: [
+           { $eq: ['$active_explanation.status', 'finished'] },
+           {
+             comment: '$active_explanation.comment',
+             option_explanations: '$active_explanation.option_explanations.text',
+             task_explanations: '$active_explanation.task_explanations.text'
+           },
+           {}
+         ]
        },
        question_type: '$question_type.slug',
        subject: '$subject.name',
