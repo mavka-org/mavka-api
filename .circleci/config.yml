@@ -41,7 +41,6 @@ jobs:
             echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
             echo 'export IMAGE_NAME=$CIRCLE_PROJECT_REPONAME' >> $BASH_ENV && source $BASH_ENV
             npm ci
-            npm run prod
             docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME -t us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME:$TAG .
       - gcp-gcr/gcr-auth:
           gcloud-service-key: GOOGLE_CLOUD_KEYS
@@ -65,7 +64,3 @@ workflows:
       - deploy_to_gcr:
           requires:
             - build_test
-          filters:
-            branches:
-              only:
-                - prod
