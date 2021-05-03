@@ -59,11 +59,11 @@ jobs:
 workflows:
   build_workflow:
     jobs:
-      - build_test
+      - build_test:
+          filters:
+              branches:
+                only:
+                  - prod
       - deploy_to_gcr:
           requires:
             - build_test
-          filters:
-            branches:
-              only:
-                - prod
