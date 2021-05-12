@@ -2,6 +2,7 @@ import { Router } from 'express'
 import score from './score'
 import questions from './questions'
 import tests from './tests'
+import program from './program'
 import subjects from './subjects'
 
 const router = new Router()
@@ -32,6 +33,7 @@ const router = new Router()
 
 router.use('/getQuestions', questions)
 router.use('/getTests', tests)
+router.use('/getProgram', program)
 router.use('/getSubjects', subjects)
 router.use('/score', score)
 
