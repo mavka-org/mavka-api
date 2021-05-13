@@ -2,16 +2,18 @@
   "name": "mavka-api",
   "version": "0.0.0",
   "main": "src",
-  "private": true,
+  "homepage": "https://mavka-org.github.io/mavka-api/",
+
   "scripts": {
     "start": "node .",
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "postcoverage": "open-cli coverage/lcov-report/index.html",
-    "dev": "nodemon -i \"*.test.js\" .",
+    "develop": "nodemon -i \"*.test.js\" .",
     "prod": "cross-env NODE_ENV=production nodemon -i \"*.test.js\" -r dotenv-safe/config .",
     "lint": "eslint src",
-    "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
+    "docs": "apidoc -i src -o docs",
+    "docsmd": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
     "postdocs": "open-cli docs/index.html"
   },
   "jest": {
