@@ -5,10 +5,10 @@ const router = new Router()
 
 /**
  * TODO
- * @api {get} /auth Authenticate
- * @apiName Authenticate
- * @apiGroup Auth
- * @apiPermission master
+ * @api {post} /getQuestions Get Questions
+ * @apiName Get Questions
+ * @apiGroup Questions
+ * @apiPermission user
  * @apiHeader {String} Authorization Basic authorization with email and password.
  * @apiParam {String} access_token Master access_token.
  * @apiSuccess (Success 201) {String} token User `access_token` to be passed to other requests.
