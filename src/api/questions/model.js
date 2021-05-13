@@ -78,6 +78,19 @@ export const basicQuestionAggregator = [
   {
     $lookup:
      {
+       from: 'topics',
+       localField: 'topic',
+       foreignField: '_id',
+       as: 'topic'
+     }
+  },
+  {
+    $unwind: '$topic'
+  },
+
+  {
+    $lookup:
+     {
        from: 'question_types',
        localField: 'question_type',
        foreignField: '_id',
@@ -150,7 +163,6 @@ export const basicQuestionAggregator = [
        primary_question: 1,
        options: '$options.text',
        tasks: '$tasks.text',
-       topic: '$zno_osvita_topic_name',
        active_explanation: {
          $cond: [
            { $eq: ['$active_explanation.status', 'finished'] },
@@ -165,10 +177,16 @@ export const basicQuestionAggregator = [
        question_type: '$question_type.slug',
        subject: '$subject.name',
        test: {
+         _id: 1,
          order_n: 1,
          session: 1,
          year: 1,
          available: 1
+       },
+       topic: {
+         _id: 1,
+         order_n: 1,
+         name: 1
        }
      }
   }
