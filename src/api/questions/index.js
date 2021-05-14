@@ -9,7 +9,7 @@ const router = new Router()
  * @apiGroup Questions
  * @apiParam {String} [test]             Test's id.
  * @apiParam {String} [topic]            Topic's id.
- * @apiParam {String} [topic]            Number of random questions's id.
+ * @apiParam {Number} [sample]           Number of random questions's id. Required if requesting topics. TODO
  * @apiParamExample {json} Test-Example:
  *     {
  *       "test": "608177ee6717352a740bde79"
@@ -49,9 +49,15 @@ router.post('/get', getQuestions)
  * @apiName GetRandomQuestions
  * @apiGroup Questions
  * @apiParam {String} [subject]          Subject's id.
+ * @apiParam {Number} [sample=10]        Number of random questions to sample.
  * @apiParamExample {json} Request-Example:
  *     {
  *       "subject": "5ffaeae5415c8719e08414d4"
+ *     }
+ * @apiParamExample {json} CustomSample-Example:
+ *     {
+ *       "subject": "5ffaeae5415c8719e08414d4",
+ *       "sample": 20
  *     }
  * @apiSuccess {Object[]} questions          List of questions for a requested test or topic.
  * @apiSuccess {String}   questions._id      Question's id.
