@@ -31,10 +31,10 @@ const router = new Router()
  * @apiParam {String[]} [fields] Fields to be returned.
  */
 
-router.use('/getQuestions', questions)
-router.use('/getTests', tests)
-router.use('/getProgram', program)
-router.use('/getSubjects', subjects)
+router.use('/questions', questions)
+router.use('/tests', tests)
+router.use('/program', program)
+router.use('/subjects', subjects)
 router.use('/score', score)
 
 export default router
