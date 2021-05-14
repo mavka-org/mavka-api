@@ -15,7 +15,7 @@ const router = new Router()
  * @apiSuccess (Success 201) {Object} user Current user's data.
  * @apiError 401 Master access only or invalid credentials.
  */
-router.post('/', getQuestions)
+router.post('/get', getQuestions)
 
 /**
  * TODO
@@ -29,6 +29,6 @@ router.post('/', getQuestions)
  * @apiSuccess (Success 201) {Object} user Current user's data.
  * @apiError 401 Master access only or invalid credentials.
  */
-router.post('/random', getRandomQuestions)
+router.post('/getRandom', getRandomQuestions)
 
 export default router
