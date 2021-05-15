@@ -23,5 +23,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: prod # The branch the action should deploy to.
           FOLDER: docs-build # The folder that the docs script generates files.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
-          TARGET_FOLDER: docs-build # The folder that we serve our Apidocs files from
+          CLEAN: false # Automatically remove deleted files from the deploy branch
+          TARGET_FOLDER: docs # The folder that we serve our Apidocs files from
