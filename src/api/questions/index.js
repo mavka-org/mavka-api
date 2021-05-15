@@ -8,16 +8,9 @@ const router = new Router()
  * @apiName GetQuestions
  * @apiGroup Questions
  * @apiParam {String} [test]             Test's id.
- * @apiParam {String} [topic]            Topic's id.
- * @apiParam {Number} [sample]           Number of random questions's id. Required if requesting topics. TODO
- * @apiParamExample {json} Test-Example:
+ * @apiParamExample {json} Request-Example:
  *     {
  *       "test": "608177ee6717352a740bde79"
- *     }
- * @apiParamExample {json} Topic-Example:
- *     {
- *       "topic": "609c004c600a9c36a86ed3c8"
- *       "samle": 10
  *     }
  * @apiSuccess {Object[]} questions          List of questions for a requested test or topic.
  * @apiSuccess {String}   questions._id      Question's id.
@@ -49,15 +42,14 @@ router.post('/get', getQuestions)
  * @apiName GetRandomQuestions
  * @apiGroup Questions
  * @apiParam {String} [subject]          Subject's id.
- * @apiParam {Number} [sample=10]        Number of random questions to sample.
+ * @apiParam {String} [topic]            Topic's id.
  * @apiParamExample {json} Request-Example:
  *     {
  *       "subject": "5ffaeae5415c8719e08414d4"
  *     }
- * @apiParamExample {json} CustomSample-Example:
+ * @apiParamExample {json} Topic-Example:
  *     {
- *       "subject": "5ffaeae5415c8719e08414d4",
- *       "sample": 20
+ *       "topic": "609c004c600a9c36a86ed3c8"
  *     }
  * @apiSuccess {Object[]} questions          List of questions for a requested test or topic.
  * @apiSuccess {String}   questions._id      Question's id.

@@ -2,9 +2,8 @@ name: Publish API docs
 
 on: 
   push:
-    paths: ["src/api/**"] # Trigger the action only when files change in the folders defined here
     branches:
-      - prod
+      - main
 
 jobs:
   build-and-deploy:
@@ -25,4 +24,4 @@ jobs:
           BRANCH: prod # The branch the action should deploy to.
           FOLDER: docs-build # The folder that the docs script generates files.
           CLEAN: true # Automatically remove deleted files from the deploy branch
-          TARGET_FOLDER: docs # The folder that we serve our Apidocs files from
+          TARGET_FOLDER: docs-build # The folder that we serve our Apidocs files from
