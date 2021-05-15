@@ -17,11 +17,12 @@ jobs:
         run: | # Install npm packages and build the Apidocs files
           npm install
           npm run docs
+          test -e ~/docs-build/index.html && echo file exists || echo file not found
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: prod # The branch the action should deploy to.
           FOLDER: docs-build # The folder that the docs script generates files.
-          CLEAN: false # Automatically remove deleted files from the deploy branch
+          CLEAN: true # Automatically remove deleted files from the deploy branch
           TARGET_FOLDER: docs # The folder that we serve our Apidocs files from
