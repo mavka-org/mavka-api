@@ -55,6 +55,7 @@ export const basicSubjectAggregator = [
        _id: 1,
        order_n: 1,
        name: 1,
+       emoji: 1,
        slug: 1,
        tests_available: 1
      }

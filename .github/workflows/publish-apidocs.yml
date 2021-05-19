@@ -17,7 +17,6 @@ jobs:
         run: | # Install npm packages and build the Apidocs files
           npm install
           npm run docs
-          test -e ~/docs-build/index.html && echo file exists || echo file not found
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
