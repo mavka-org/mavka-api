@@ -2,9 +2,8 @@ name: Publish API docs
 
 on: 
   push:
-    paths: ["src/api/**"] # Trigger the action only when files change in the folders defined here
     branches:
-      - prod
+      - main
 
 jobs:
   build-and-deploy:
