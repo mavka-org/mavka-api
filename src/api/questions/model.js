@@ -85,7 +85,7 @@ export const basicQuestionAggregator = [
      }
   },
   {
-    $unwind: '$topic'
+    $unwind: { path: '$topic', preserveNullAndEmptyArrays: true }
   },
 
   {
@@ -131,7 +131,7 @@ export const basicQuestionAggregator = [
      }
   },
   {
-    $unwind: '$active_explanation'
+    $unwind: { path: '$active_explanation', preserveNullAndEmptyArrays: true }
   },
 
   {
